@@ -9,9 +9,9 @@ export default {
       colors: {
         brand: {
           orange: "#F47756",
-          charcoal: "#686868",
-          divider: "#282828",
-          muted: "#A3A3A3",
+          charcoal: "#252525",
+          grey: "#686868",
+          border: "#E5E5E5",
         },
       },
       fontFamily: {

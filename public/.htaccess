@@ -1,0 +1,26 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # 1. Serve existing files and directories directly
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # 2. Return real 404 for missing static assets instead of serving index.html
+  RewriteCond %{REQUEST_URI} \.(?:css|js|map|json|png|jpe?g|gif|svg|webp|ico|woff2?|ttf|eot|otf)$ [NC]
+  RewriteRule ^ - [R=404,L]
+
+  # 3. SPA fallback to index.html for non-file requests
+  RewriteRule ^ index.html [L]
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Essential Security & MIME type configurations
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
